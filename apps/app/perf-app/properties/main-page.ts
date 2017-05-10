@@ -1,6 +1,6 @@
-import { StackLayout } from "tns-core-modules/ui/layouts/stack-layout";
-import { TextView } from "tns-core-modules/ui/text-view";
-import { Button } from "tns-core-modules/ui/button";
+import { StackLayout } from "ui/layouts/stack-layout";
+import { TextView } from "ui/text-view";
+import { Button } from "ui/button";
 
 import * as tests from "./tests";
 

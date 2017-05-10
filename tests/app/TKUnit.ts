@@ -238,7 +238,7 @@ export function assertDeepEqual(actual, expected, path: any[] = []): void {
     let typeofExpected = typeof expected;
     if (typeofActual !== typeofExpected) {
         throw new Error("At /" + path.join("/") + " types of actual " + typeofActual + " and expected " + typeofExpected + " differ.");
-    } else if (typeofActual === "object" || typeofActual === "array") {
+    } else if (typeofActual === "object") {
         if (expected instanceof Map) {
             if (actual instanceof Map) {
                 expected.forEach((value, key) => {
@@ -294,7 +294,7 @@ export function assertDeepSuperset(actual, expected, path: any[] = []): void {
     let typeofExpected = typeof expected;
     if (typeofActual !== typeofExpected) {
         throw new Error("At /" + path.join("/") + " types of actual " + typeofActual + " and expected " + typeofExpected + " differ.");
-    } else if (typeofActual === "object" || typeofActual === "array") {
+    } else if (typeofActual === "object") {
         for (let key in expected) {
             if (!(key in actual)) {
                 throw new Error("At /" + path.join("/") + " expected a key " + key + ".");

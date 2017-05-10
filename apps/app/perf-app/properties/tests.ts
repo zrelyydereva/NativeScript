@@ -1,6 +1,6 @@
-import { LayoutBase } from "tns-core-modules/ui/layouts/layout-base";
-import { StackLayout } from "tns-core-modules/ui/layouts/stack-layout";
-import { Label } from "tns-core-modules/ui/label";
+import { LayoutBase } from "ui/layouts/layout-base";
+import { StackLayout } from "ui/layouts/stack-layout";
+import { Label } from "ui/label";
 
 const average = 3;
 const noValue = "noValue";

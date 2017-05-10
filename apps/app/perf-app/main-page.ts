@@ -1,11 +1,11 @@
-import { EventData, Observable } from "tns-core-modules/data/observable";
-import { WrapLayout } from "tns-core-modules/ui/layouts/wrap-layout";
-import { Page } from "tns-core-modules/ui/page";
-import * as buttonModule from "tns-core-modules/ui/button";
-import * as colorModule from "tns-core-modules/color";
-import * as platform from "tns-core-modules/platform";
-import * as dialogs from "tns-core-modules/ui/dialogs";
-import * as frame from "tns-core-modules/ui/frame";
+import { EventData, Observable } from "data/observable";
+import { WrapLayout } from "ui/layouts/wrap-layout";
+import { Page } from "ui/page";
+import * as buttonModule from "ui/button";
+import * as colorModule from "color";
+import * as platform from "platform";
+import * as dialogs from "ui/dialogs";
+import * as frame from "ui/frame";
 
 export function pageLoaded(args: EventData) {
     let page = <Page>args.object;
