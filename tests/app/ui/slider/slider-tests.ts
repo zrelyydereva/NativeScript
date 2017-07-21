@@ -62,24 +62,34 @@ export function test_set_TNS_min_max_value_updates_native_min_max_value() {
      slider.value = TEST_VALUE;
 
     function testAction(views: Array<View>) {
-        // TKUnit.assertEqual(getNativeMinValue(slider), MIN_TEST_VALUE, "Native min value is different from TNS min value.");
-        TKUnit.assertEqual(getNativeMaxValue(slider), MAX_TEST_VALUE, "Native max value is different from TNS max value.");
-        TKUnit.assertEqual(getNativeValue(slider), TEST_VALUE, "Native value is different from TNS value.");
+        if (isIOS) {
+            TKUnit.assertEqual(slider.ios.minimumValue, MIN_TEST_VALUE, "Native min value is different from TNS min value.");
+            TKUnit.assertEqual(slider.ios.maximumValue, MAX_TEST_VALUE, "Native max value is different from TNS max value.");
+            TKUnit.assertEqual(slider.ios.value, TEST_VALUE, "Native value is different from TNS value.");
+        } else {
+            TKUnit.assertEqual(slider.android.getMax(), MAX_TEST_VALUE - MIN_TEST_VALUE, "Native max value is different from TNS max value.");
+            TKUnit.assertEqual(slider.android.getProgress(), TEST_VALUE - MIN_TEST_VALUE, "Native value is different from TNS value.");
+        }
     };
 
     helper.buildUIAndRunTest(slider, testAction);
 }
 
+// TODO: Is this correct? Why should be in testAction()
 export function test_set_native_min_max_value_updates_TNS_min_max_value() {
     const slider = new Slider();
 
     // setNativeMinValue(slider, MIN_TEST_VALUE);
-    setNativeMaxValue(slider, MAX_TEST_VALUE);
-    setNativeValue(slider, TEST_VALUE);
+    // setNativeMaxValue(slider, MAX_TEST_VALUE);
+    // setNativeValue(slider, TEST_VALUE);
 
     function testAction(views: Array<View>) {
-        // TKUnit.assertEqual(slider.minValue, MIN_TEST_VALUE, "TNS min value is different from native min value.");
-        TKUnit.assertEqual(slider.maxValue, MAX_TEST_VALUE, "TNS max value is different from native max value.");
+        // if (isIOS) {
+        //     TKUnit.assertEqual(slider.minValue, MIN_TEST_VALUE, "TNS min value is different from native min value.");
+        // }
+        // TKUnit.assertEqual(slider.maxValue, MAX_TEST_VALUE, "TNS max value is different from native max value.");
+
+        setNativeValue(slider, TEST_VALUE);
         TKUnit.assertEqual(slider.value, TEST_VALUE, "TNS value is different from native value.");
     };
 
@@ -504,16 +514,6 @@ function getNativeMaxValue(slider: Slider): number {
     }
 }
 
-// ?
-// function getNativeMinValue(slider: Slider): number {
-//     if (slider.android) {
-//         return slider.android.getMin();
-//     }
-//     else if (slider.ios) {
-//         return slider.ios.minimumValue;
-//     }
-// }
-
 function setNativeValue(slider: Slider, value: number) {
     if (slider.android) {
         slider.android.setProgress(value);
@@ -538,15 +538,11 @@ function setNativeMaxValue(slider: Slider, maxValue: number) {
     }
 }
 
-// ?
-// function setNativeMinValue(slider: Slider, minValue: number) {
-//     if (slider.android) {
-//         slider.android.setMin(minValue);
-//     }
-//     else if (slider.ios) {
-//         slider.ios.minimumValue = minValue;
-//
-//         // setting value trough code does not send notification, so simulate that manually.
-//         slider.ios.sendActionsForControlEvents(UIControlEvents.ValueChanged);
-//     }
-// }
+function setNativeMinValue(slider: Slider, minValue: number) {
+    if (slider.ios) {
+        slider.ios.minimumValue = minValue;
+
+        // setting value trough code does not send notification, so simulate that manually.
+        slider.ios.sendActionsForControlEvents(UIControlEvents.ValueChanged);
+    }
+}
