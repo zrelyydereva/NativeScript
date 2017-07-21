@@ -89,19 +89,19 @@ export class Slider extends SliderBase {
         return 0;
     }
     [valueProperty.setNative](value: number) {
-        this.setNativeValuesSilently(value - this.minValue, this.maxValue - this.minValue);
+        this.setNativeValuesSilently(this.value - this.minValue, this.maxValue - this.minValue);
     }
     [minValueProperty.getDefault](): number {
         return 0;
     }
     [minValueProperty.setNative](value: number) {
-        this.setNativeValuesSilently(this.value - value, this.maxValue - value);
+        this.setNativeValuesSilently(this.value - this.minValue, this.maxValue - this.minValue);
     }
     [maxValueProperty.getDefault](): number {
         return 100;
     }
     [maxValueProperty.setNative](value: number) {
-        this.setNativeValuesSilently(value - this.minValue, value);
+        this.setNativeValuesSilently(this.value - this.minValue, this.maxValue - this.minValue);
     }
 
     [colorProperty.getDefault](): number {
