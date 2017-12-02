@@ -101,7 +101,17 @@ function initializeEditTextListeners(): void {
             if (!owner) {
                 return;
             }
-
+            //Patching for pressing enter-key on Japanese IME 
+            //(default IME isnot raise onEditorAction, but Japanese IME (Google日本語入力) raises this.
+            // it's means that COULD NOT MAKE NEWLINE)
+            if(actionId === 0 && (event && event.getKeyCode() === android.view.KeyEvent.KEYCODE_ENTER)){
+                if (textView.getMaxLines() === 1) {
+                    owner.dismissSoftInput();
+                }
+                owner._onReturnPress();
+                return false;
+            }
+            //End of Patch IME
             if (actionId === android.view.inputmethod.EditorInfo.IME_ACTION_DONE ||
                 actionId === android.view.inputmethod.EditorInfo.IME_ACTION_GO ||
                 actionId === android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH ||
